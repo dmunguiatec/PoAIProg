@@ -27,11 +27,12 @@
   (member goal (op-add-list op)))
 
 (define (apply-op op)
-  (if (not (void? (when (every achieve (op-preconds op))
-                    (displayln (list 'executing (op-action op)))
-                    (set! *state* (set-subtract *state* (op-del-list op)))
-                    (set! *state* (set-union *state* (op-add-list op)))
-                    #t)))
-      #t #f))
+  (not
+   (void?
+    (when (every achieve (op-preconds op))
+      (displayln (list 'executing (op-action op)))
+      (set! *state* (set-subtract *state* (op-del-list op)))
+      (set! *state* (set-union *state* (op-add-list op)))
+      #t))))
 
 (GPS '(son-at-school))
